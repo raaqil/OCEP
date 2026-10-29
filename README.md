@@ -61,10 +61,12 @@ Hasil build tersedia di folder `dist/`. Untuk deployment, unggah **isi folder `d
 Jika proyek disimpan di `C:\xampp\htdocs\OCEP`, jalankan build dan aktifkan Apache, lalu buka:
 
 ```text
-http://localhost/OCEP/dist/
+http://localhost/OCEP/
 ```
 
-Untuk pengembangan, tetap gunakan development server Vite. File sumber `index.html` tidak dapat langsung dijalankan melalui Apache karena kode React perlu diproses oleh Vite.
+Konfigurasi `.htaccess` di folder proyek mengarahkan permintaan halaman dan aset secara internal ke hasil build di `dist/`, sehingga alamat browser tetap `http://localhost/OCEP/`. Pastikan Apache mengaktifkan `mod_rewrite` dan mengizinkan `.htaccess` melalui `AllowOverride All`; konfigurasi XAMPP lokal sudah mendukungnya. Jalankan `npm run build` setiap kali mengubah kode frontend agar perubahan muncul melalui Apache.
+
+Untuk pengembangan dengan pembaruan langsung, tetap gunakan development server Vite.
 
 Folder `node_modules/`, `dist/`, berkas environment, dan hasil pemeriksaan lokal tidak disertakan dalam Git. Setelah clone, jalankan `npm ci` untuk memasang dependency dan `npm run build` untuk membuat ulang `dist/`.
 
@@ -72,6 +74,7 @@ Folder `node_modules/`, `dist/`, berkas environment, dan hasil pemeriksaan lokal
 
 ```text
 OCEP/
+├── .htaccess             # Akses build melalui URL utama di Apache
 ├── public/
 │   ├── assets/           # Logo dan gambar lokal
 │   └── favicon.svg

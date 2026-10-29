@@ -1,0 +1,7 @@
+# Serve the Vite production build directly from this project directory.
+# Run npm run build after changing the frontend source.
+Options -Indexes
+RewriteEngine On
+
+RewriteRule ^(?:index\.html)?$ dist/index.html [END]
+RewriteRule ^(assets/.*|favicon\.svg)$ dist/$1 [END]
